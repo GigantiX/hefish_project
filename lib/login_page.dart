@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -13,6 +14,7 @@ class _LoginPageState extends State<LoginPage> {
   bool pass = true;
   TextEditingController emailC = TextEditingController();
   TextEditingController passC = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
 
@@ -21,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.fromLTRB(30,10,30,10),
           child: Column(
             children: [
               Container(
@@ -30,13 +32,15 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      'assets/images/hefishLogo.png',
-                      height: 50,
-                      width: 70,
+                    Center(
+                      child: Image.asset(
+                        'assets/images/hefishLogo.png',
+                        height: 45,
+                        width: 70,
+                      ),
                     ),
-                    SizedBox(
-                      height: 90,
+                    const SizedBox(
+                      height: 100,
                     ),
                     Text(
                       'Hello,',
@@ -52,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                           fontWeight: FontWeight.normal,
                           color: Colors.white),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 25,
                     )
                   ],
@@ -60,95 +64,151 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Center(
                 child: SizedBox(
-                  height: 320,
+                  height: 350,
                   width: double.infinity,
                   child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Colors.white),
                     child: Padding(
-                      padding: EdgeInsets.all(20),
-                      child: Column(
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black12,
-                              borderRadius: BorderRadius.circular(7),
-                            ),
-                            child: const TextField(
-                              // controller: emailC,
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.emailAddress,
-                              decoration: InputDecoration(
-                                hintText: 'Username',
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(20),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black12,
+                                borderRadius: BorderRadius.circular(7),
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Colors.black12,
-                              borderRadius: BorderRadius.circular(7),
-                            ),
-                            child: TextField(
-                              obscureText: pass,
-                              decoration: InputDecoration(
-                                hintText: 'Password',
-                                border: InputBorder.none,
-                                contentPadding: EdgeInsets.all(10),
-                                suffixIcon: IconButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        if (pass == true) {
-                                          pass = false;
-                                        } else {
-                                          pass = true;
-                                        }
-                                      });
-                                    },
-                                    icon: Icon(Icons.remove_red_eye)),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
-                            width: 300,
-                            height: 43,
-                            child: ElevatedButton(
-                              onPressed: () {
-
-                                // Navigator.pushNamed(context, '/home');
-                              },
-                              child: Text('Login'),
-                              style: ElevatedButton.styleFrom(
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.circular(7), // <-- Radius
+                              child: TextFormField(
+                                validator: (v) {
+                                  if (v == null || v.length < 4){
+                                    return 'Please enter your email';
+                                  }
+                                  return null;
+                                },
+                                // controller: emailC,
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.emailAddress,
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  errorMaxLines: 1,
+                                  errorStyle: TextStyle(
+                                    color: Colors.transparent,
+                                    fontSize: 0
+                                  ),
+                                  hintText: 'Username',
+                                  border: InputBorder.none,
+                                  contentPadding: EdgeInsets.all(10),
                                 ),
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Center(
-                            child: Text('or login with'),
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          IconButton(
-                            icon: Image.asset('assets/images/google-icon.png'),
-                            iconSize: 45,
-                            onPressed: () {},
-                          )
-                        ],
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.black12,
+                                borderRadius: BorderRadius.circular(7),
+                              ),
+                              child: TextFormField(
+                                validator: (v) {
+                                  if (v == null || v.length < 4){
+                                    return 'please enter your password';
+                                  }
+                                  if (!RegExp(".*[0-9].*").hasMatch(v ?? '')){
+                                    return 'Input must contain numeric';
+                                  }
+                                  if (!RegExp('.*[a-z].*').hasMatch(v ?? '')) {
+                                    return 'Input contain a lowercase';
+                                  }
+                                  if (!RegExp('.*[A-Z].*').hasMatch(v ?? '')) {
+                                    return 'Input must contain uppercase';
+                                  }
+                                  return null;
+                                },
+                                obscureText: pass,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  errorMaxLines: 1,
+                                  errorStyle: const TextStyle(
+                                      color: Colors.transparent,
+                                      fontSize: 0
+                                  ),
+                                  hintText: 'Password',
+                                  border: InputBorder.none,
+                                  contentPadding: const EdgeInsets.all(10),
+                                  suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          if (pass == true) {
+                                            pass = false;
+                                          } else {
+                                            pass = true;
+                                          }
+                                        });
+                                      },
+                                      icon: const Icon(Icons.remove_red_eye)),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            SizedBox(
+                              width: 300,
+                              height: 43,
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  if(_formKey.currentState!.validate()){
+                                    Fluttertoast.showToast(
+                                        msg: "Loading...",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.yellow,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0
+                                    );
+                                    Navigator.pushNamed(context, '/home');
+                                  } else{
+                                    Fluttertoast.showToast(
+                                        msg: "Username/Password is wrong!",
+                                        toastLength: Toast.LENGTH_LONG,
+                                        gravity: ToastGravity.CENTER,
+                                        timeInSecForIosWeb: 1,
+                                        backgroundColor: Colors.redAccent,
+                                        textColor: Colors.white,
+                                        fontSize: 16.0
+                                    );
+                                  }
+                                },
+                                child: const Text('Login'),
+                                style: ElevatedButton.styleFrom(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(7),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 20,
+                            ),
+                            const Center(
+                              child: const Text('or login with'),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            IconButton(
+                              icon: Image.asset('assets/images/google-icon.png'),
+                              iconSize: 45,
+                              onPressed: () {},
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
