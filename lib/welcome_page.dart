@@ -15,9 +15,9 @@ class _WelcomePageState extends State<WelcomePage> {
     return Scaffold(
       body: Container(
         width: MediaQuery.of(context).size.width,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage('assets/images/WallFix.png'),
+        decoration: const BoxDecoration(
+          image: const DecorationImage(
+              image: const AssetImage('assets/images/WallFix.png'),
               fit: BoxFit.cover
           ),
         ),
@@ -26,7 +26,7 @@ class _WelcomePageState extends State<WelcomePage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 70,
               ),
               Text('Welcome to',
@@ -50,14 +50,14 @@ class _WelcomePageState extends State<WelcomePage> {
                     color: Colors.white
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 60,
               ),
               Center(
                 child: Column(
                   children: [
                     Image.asset('assets/images/IllustFix.png'),
-                    SizedBox(
+                    const SizedBox(
                       height: 100,
                     ),
                     SizedBox(
@@ -80,14 +80,16 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                         ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     SizedBox(
                       height: 50,
                       width: 340,
                       child: ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/register');
+                        },
                         child: Text('Sign Up',
                           style: GoogleFonts.poppins(
                               color: Colors.black
@@ -101,7 +103,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         ),
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     SizedBox(
@@ -117,7 +119,7 @@ class _WelcomePageState extends State<WelcomePage> {
                                 'http://pngimg.com/uploads/google/google_PNG19635.png',
                                 fit:BoxFit.cover
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 30,
                             ),
                             Center(

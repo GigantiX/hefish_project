@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterPage> createState() => _RegisterPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-
+class _RegisterPageState extends State<RegisterPage> {
   bool pass = true;
+  bool pas = true;
   final TextEditingController emailC = TextEditingController();
   final TextEditingController passC = TextEditingController();
+  final TextEditingController pasC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
-
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -50,7 +50,7 @@ class _LoginPageState extends State<LoginPage> {
                           color: Colors.white),
                     ),
                     Text(
-                      'Please sign in to continue,',
+                      'Please sign up to create account,',
                       style: GoogleFonts.poppins(
                           fontSize: 15,
                           fontWeight: FontWeight.normal,
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Center(
                 child: SizedBox(
-                  height: 350,
+                  height: 390,
                   width: double.infinity,
                   child: Container(
                     decoration: const BoxDecoration(
@@ -81,6 +81,10 @@ class _LoginPageState extends State<LoginPage> {
                               height: 10,
                             ),
                             widPass(),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            widPas(),
                             const SizedBox(
                               height: 20,
                             ),
@@ -103,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                                     Navigator.pushNamed(context, '/home');
                                   } else{
                                     Fluttertoast.showToast(
-                                        msg: "Username/Password is wrong!",
+                                        msg: "Username/Password is does not meet the requirements",
                                         toastLength: Toast.LENGTH_LONG,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 1,
@@ -113,11 +117,11 @@ class _LoginPageState extends State<LoginPage> {
                                     );
                                   }
                                 },
-                                child: const Text('Login'),
+                                child: const Text('Register'),
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
                                     borderRadius:
-                                        BorderRadius.circular(7),
+                                    BorderRadius.circular(7),
                                   ),
                                 ),
                               ),
@@ -231,5 +235,47 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
-
+  Container widPas(){
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black12,
+        borderRadius: BorderRadius.circular(7),
+      ),
+      child: TextFormField(
+        controller: pasC,
+        validator: (v) {
+          if (v == null || v.length < 4){
+            return 'please enter your password';
+          }
+          if(v != passC.text){
+            return 'Password not match';
+          }
+          return null;
+        },
+        obscureText: pas,
+        decoration: InputDecoration(
+          isDense: true,
+          errorMaxLines: 1,
+          errorStyle: const TextStyle(
+              color: Colors.transparent,
+              fontSize: 0
+          ),
+          hintText: 'Confirm Password',
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.all(10),
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  if (pas == true) {
+                    pas = false;
+                  } else {
+                    pas = true;
+                  }
+                });
+              },
+              icon: const Icon(Icons.remove_red_eye)),
+        ),
+      ),
+    );
+  }
 }
