@@ -12,8 +12,8 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   bool pass = true;
-  TextEditingController emailC = TextEditingController();
-  TextEditingController passC = TextEditingController();
+  final TextEditingController emailC = TextEditingController();
+  final TextEditingController passC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -76,83 +76,11 @@ class _LoginPageState extends State<LoginPage> {
                         key: _formKey,
                         child: Column(
                           children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(7),
-                              ),
-                              child: TextFormField(
-                                validator: (v) {
-                                  if (v == null || v.length < 4){
-                                    return 'Please enter your email';
-                                  }
-                                  return null;
-                                },
-                                // controller: emailC,
-                                textInputAction: TextInputAction.next,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: const InputDecoration(
-                                  isDense: true,
-                                  errorMaxLines: 1,
-                                  errorStyle: TextStyle(
-                                    color: Colors.transparent,
-                                    fontSize: 0
-                                  ),
-                                  hintText: 'Username',
-                                  border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(10),
-                                ),
-                              ),
-                            ),
+                            widUsername(),
                             const SizedBox(
                               height: 10,
                             ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Colors.black12,
-                                borderRadius: BorderRadius.circular(7),
-                              ),
-                              child: TextFormField(
-                                validator: (v) {
-                                  if (v == null || v.length < 4){
-                                    return 'please enter your password';
-                                  }
-                                  if (!RegExp(".*[0-9].*").hasMatch(v ?? '')){
-                                    return 'Input must contain numeric';
-                                  }
-                                  if (!RegExp('.*[a-z].*').hasMatch(v ?? '')) {
-                                    return 'Input contain a lowercase';
-                                  }
-                                  if (!RegExp('.*[A-Z].*').hasMatch(v ?? '')) {
-                                    return 'Input must contain uppercase';
-                                  }
-                                  return null;
-                                },
-                                obscureText: pass,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  errorMaxLines: 1,
-                                  errorStyle: const TextStyle(
-                                      color: Colors.transparent,
-                                      fontSize: 0
-                                  ),
-                                  hintText: 'Password',
-                                  border: InputBorder.none,
-                                  contentPadding: const EdgeInsets.all(10),
-                                  suffixIcon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          if (pass == true) {
-                                            pass = false;
-                                          } else {
-                                            pass = true;
-                                          }
-                                        });
-                                      },
-                                      icon: const Icon(Icons.remove_red_eye)),
-                                ),
-                              ),
-                            ),
+                            widPass(),
                             const SizedBox(
                               height: 20,
                             ),
@@ -171,6 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                                         textColor: Colors.white,
                                         fontSize: 16.0
                                     );
+                                    print('$emailC & $passC');
                                     Navigator.pushNamed(context, '/home');
                                   } else{
                                     Fluttertoast.showToast(
@@ -220,4 +149,88 @@ class _LoginPageState extends State<LoginPage> {
       ),
     );
   }
+  Container widUsername() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.black12,
+        borderRadius: BorderRadius.circular(7),
+      ),
+      child: TextFormField(
+        controller: emailC,
+        validator: (v) {
+          if (v == null || v.length < 4){
+            return 'Please enter your email';
+          }
+          return null;
+        },
+        // controller: emailC,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.emailAddress,
+        decoration: const InputDecoration(
+          isDense: true,
+          errorMaxLines: 1,
+          errorStyle: TextStyle(
+              color: Colors.transparent,
+              fontSize: 0
+          ),
+          hintText: 'Username',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.all(10),
+        ),
+      ),
+    );
+  }
+
+  Container widPass(){
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.black12,
+        borderRadius: BorderRadius.circular(7),
+      ),
+      child: TextFormField(
+        controller: passC,
+        validator: (v) {
+          if (v == null || v.length < 4){
+            return 'please enter your password';
+          }
+          if (!RegExp(".*[0-9].*").hasMatch(v ?? '')){
+            return 'Input must contain numeric';
+          }
+          if (!RegExp('.*[a-z].*').hasMatch(v ?? '')) {
+            return 'Input contain a lowercase';
+          }
+          if (!RegExp('.*[A-Z].*').hasMatch(v ?? '')) {
+            return 'Input must contain uppercase';
+          }
+          return null;
+        },
+        obscureText: pass,
+        decoration: InputDecoration(
+          isDense: true,
+          errorMaxLines: 1,
+          errorStyle: const TextStyle(
+              color: Colors.transparent,
+              fontSize: 0
+          ),
+          hintText: 'Password',
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.all(10),
+          suffixIcon: IconButton(
+              onPressed: () {
+                setState(() {
+                  if (pass == true) {
+                    pass = false;
+                  } else {
+                    pass = true;
+                  }
+                });
+              },
+              icon: const Icon(Icons.remove_red_eye)),
+        ),
+      ),
+    );
+  }
+
+
 }
