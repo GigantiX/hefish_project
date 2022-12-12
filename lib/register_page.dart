@@ -12,6 +12,7 @@ class RegisterPage extends StatefulWidget {
 class _RegisterPageState extends State<RegisterPage> {
   bool pass = true;
   bool pas = true;
+  final TextEditingController userC = TextEditingController();
   final TextEditingController emailC = TextEditingController();
   final TextEditingController passC = TextEditingController();
   final TextEditingController pasC = TextEditingController();
@@ -23,7 +24,7 @@ class _RegisterPageState extends State<RegisterPage> {
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(30,10,30,10),
+          padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
           child: Column(
             children: [
               Container(
@@ -80,6 +81,10 @@ class _RegisterPageState extends State<RegisterPage> {
                             const SizedBox(
                               height: 10,
                             ),
+                            widEmail(),
+                            const SizedBox(
+                              height: 10,
+                            ),
                             widPass(),
                             const SizedBox(
                               height: 10,
@@ -93,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                               height: 43,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  if(_formKey.currentState!.validate()){
+                                  if (_formKey.currentState!.validate()) {
                                     Fluttertoast.showToast(
                                         msg: "Loading...",
                                         toastLength: Toast.LENGTH_SHORT,
@@ -101,45 +106,56 @@ class _RegisterPageState extends State<RegisterPage> {
                                         timeInSecForIosWeb: 1,
                                         backgroundColor: Colors.yellow,
                                         textColor: Colors.white,
-                                        fontSize: 16.0
-                                    );
+                                        fontSize: 16.0);
                                     print('$emailC & $passC');
                                     Navigator.pushNamed(context, '/home');
-                                  } else{
+                                  } else {
                                     Fluttertoast.showToast(
-                                        msg: "Username/Password is does not meet the requirements",
+                                        msg:
+                                            "Username/Password is does not meet the requirements",
                                         toastLength: Toast.LENGTH_LONG,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 1,
                                         backgroundColor: Colors.redAccent,
                                         textColor: Colors.white,
-                                        fontSize: 16.0
-                                    );
+                                        fontSize: 16.0);
                                   }
                                 },
-                                child: const Text('Register'),
+                                child: Text('Register'),
                                 style: ElevatedButton.styleFrom(
                                   shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                    BorderRadius.circular(7),
+                                    borderRadius: BorderRadius.circular(7),
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 20,
+                            Expanded(
+                              child: SizedBox(
+                                height: 10,
+                              ),
                             ),
-                            const Center(
-                              child: const Text('or login with'),
+                            Center(
+                              child: Row(
+                               children: [
+                                 Text('Already have an account?'),
+                                 TextButton(
+                                     onPressed: (){
+                                       Navigator.pushNamed(context, '/login');
+                                     },
+                                     child: Text('Login here')
+                                 ),
+                               ],
+                              )
                             ),
                             const SizedBox(
                               height: 10,
                             ),
-                            IconButton(
-                              icon: Image.asset('assets/images/google-icon.png'),
-                              iconSize: 45,
-                              onPressed: () {},
-                            )
+                            // IconButton(
+                            //   icon:
+                            //       Image.asset('assets/images/google-icon.png'),
+                            //   iconSize: 45,
+                            //   onPressed: () {},
+                            // )
                           ],
                         ),
                       ),
@@ -153,6 +169,7 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
+
   Container widUsername() {
     return Container(
       height: 50,
@@ -163,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: TextFormField(
         controller: emailC,
         validator: (v) {
-          if (v == null || v.length < 4){
+          if (v == null || v.length < 4) {
             return 'Please enter your email';
           }
           return null;
@@ -174,10 +191,7 @@ class _RegisterPageState extends State<RegisterPage> {
         decoration: const InputDecoration(
           isDense: true,
           errorMaxLines: 1,
-          errorStyle: TextStyle(
-              color: Colors.transparent,
-              fontSize: 0
-          ),
+          errorStyle: TextStyle(color: Colors.transparent, fontSize: 0),
           hintText: 'Username',
           border: InputBorder.none,
           contentPadding: EdgeInsets.all(10),
@@ -186,7 +200,37 @@ class _RegisterPageState extends State<RegisterPage> {
     );
   }
 
-  Container widPass(){
+  Container widEmail() {
+    return Container(
+      height: 50,
+      decoration: BoxDecoration(
+        color: Colors.black12,
+        borderRadius: BorderRadius.circular(7),
+      ),
+      child: TextFormField(
+        controller: emailC,
+        validator: (v) {
+          if (v == null || v.length < 4) {
+            return 'Please enter your email';
+          }
+          return null;
+        },
+        // controller: emailC,
+        textInputAction: TextInputAction.next,
+        keyboardType: TextInputType.emailAddress,
+        decoration: const InputDecoration(
+          isDense: true,
+          errorMaxLines: 1,
+          errorStyle: TextStyle(color: Colors.transparent, fontSize: 0),
+          hintText: 'Email',
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.all(10),
+        ),
+      ),
+    );
+  }
+
+  Container widPass() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black12,
@@ -195,10 +239,10 @@ class _RegisterPageState extends State<RegisterPage> {
       child: TextFormField(
         controller: passC,
         validator: (v) {
-          if (v == null || v.length < 4){
+          if (v == null || v.length < 4) {
             return 'please enter your password';
           }
-          if (!RegExp(".*[0-9].*").hasMatch(v ?? '')){
+          if (!RegExp(".*[0-9].*").hasMatch(v ?? '')) {
             return 'Input must contain numeric';
           }
           if (!RegExp('.*[a-z].*').hasMatch(v ?? '')) {
@@ -210,13 +254,11 @@ class _RegisterPageState extends State<RegisterPage> {
           return null;
         },
         obscureText: pass,
+        textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           isDense: true,
           errorMaxLines: 1,
-          errorStyle: const TextStyle(
-              color: Colors.transparent,
-              fontSize: 0
-          ),
+          errorStyle: const TextStyle(color: Colors.transparent, fontSize: 0),
           hintText: 'Password',
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(10),
@@ -235,7 +277,8 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-  Container widPas(){
+
+  Container widPas() {
     return Container(
       decoration: BoxDecoration(
         color: Colors.black12,
@@ -244,22 +287,20 @@ class _RegisterPageState extends State<RegisterPage> {
       child: TextFormField(
         controller: pasC,
         validator: (v) {
-          if (v == null || v.length < 4){
+          if (v == null || v.length < 4) {
             return 'please enter your password';
           }
-          if(v != passC.text){
+          if (v != passC.text) {
             return 'Password not match';
           }
           return null;
         },
         obscureText: pas,
+        textInputAction: TextInputAction.none,
         decoration: InputDecoration(
           isDense: true,
           errorMaxLines: 1,
-          errorStyle: const TextStyle(
-              color: Colors.transparent,
-              fontSize: 0
-          ),
+          errorStyle: const TextStyle(color: Colors.transparent, fontSize: 0),
           hintText: 'Confirm Password',
           border: InputBorder.none,
           contentPadding: const EdgeInsets.all(10),

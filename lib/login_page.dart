@@ -12,7 +12,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
 
   bool pass = true;
-  final TextEditingController emailC = TextEditingController();
+  final TextEditingController userC = TextEditingController();
   final TextEditingController passC = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
@@ -64,14 +64,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Center(
                 child: SizedBox(
-                  height: 350,
+                  height: 340,
                   width: double.infinity,
                   child: Container(
                     decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(10)),
                         color: Colors.white),
                     child: Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.fromLTRB(20,20,20,10),
                       child: Form(
                         key: _formKey,
                         child: Column(
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                                         textColor: Colors.white,
                                         fontSize: 16.0
                                     );
-                                    print('$emailC & $passC');
+                                    print('$userC & $passC');
                                     Navigator.pushNamed(context, '/home');
                                   } else{
                                     Fluttertoast.showToast(
@@ -128,14 +128,22 @@ class _LoginPageState extends State<LoginPage> {
                             const Center(
                               child: const Text('or login with'),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
                             IconButton(
                               icon: Image.asset('assets/images/google-icon.png'),
-                              iconSize: 45,
+                              iconSize: 35,
                               onPressed: () {},
-                            )
+                            ),
+                            Row(
+                              children: [
+                                Text('Dont have an account?'),
+                                TextButton(
+                                    onPressed: (){
+                                      Navigator.pushNamed(context, '/register');
+                                    },
+                                    child: Text('Sign up here')
+                                ),
+                              ],
+                            ),
                           ],
                         ),
                       ),
@@ -157,7 +165,7 @@ class _LoginPageState extends State<LoginPage> {
         borderRadius: BorderRadius.circular(7),
       ),
       child: TextFormField(
-        controller: emailC,
+        controller: userC,
         validator: (v) {
           if (v == null || v.length < 4){
             return 'Please enter your email';
