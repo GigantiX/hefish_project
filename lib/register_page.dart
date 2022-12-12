@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hefish_project/logic.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -99,8 +100,9 @@ class _RegisterPageState extends State<RegisterPage> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
+                                    regtest(emailC.text, userC.text, pasC.text);
                                     Fluttertoast.showToast(
-                                        msg: "Loading...",
+                                        msg: "Account registered & please login to continue",
                                         toastLength: Toast.LENGTH_SHORT,
                                         gravity: ToastGravity.CENTER,
                                         timeInSecForIosWeb: 1,
@@ -178,7 +180,7 @@ class _RegisterPageState extends State<RegisterPage> {
         borderRadius: BorderRadius.circular(7),
       ),
       child: TextFormField(
-        controller: emailC,
+        controller: userC,
         validator: (v) {
           if (v == null || v.length < 4) {
             return 'Please enter your email';
