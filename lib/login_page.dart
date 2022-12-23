@@ -253,9 +253,9 @@ class _LoginPageState extends State<LoginPage> {
     );
     print(response);
     if (response.statusCode == 200) {
-      // Navigator.pushNamedAndRemoveUntil(context,'/home',
-      //         (Route<dynamic> route) => false
-      // );
+      Navigator.pushNamedAndRemoveUntil(context,'/home',
+              (Route<dynamic> route) => false
+      );
       Fluttertoast.showToast(
           msg: "Login Success",
           toastLength: Toast.LENGTH_SHORT,
@@ -268,16 +268,6 @@ class _LoginPageState extends State<LoginPage> {
     } if(response.statusCode == 404) {
       Fluttertoast.showToast(
           msg: "Username/Password wrong",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIosWeb: 1,
-          backgroundColor: Colors.yellow,
-          textColor: Colors.white,
-          fontSize: 16.0
-      );
-    }else{
-      Fluttertoast.showToast(
-          msg: "Error",
           toastLength: Toast.LENGTH_SHORT,
           gravity: ToastGravity.CENTER,
           timeInSecForIosWeb: 1,
