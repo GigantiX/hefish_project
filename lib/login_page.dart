@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -90,17 +92,10 @@ class _LoginPageState extends State<LoginPage> {
                               child: ElevatedButton(
                                 onPressed: () {
                                   if(_formKey.currentState!.validate()){
-                                    Fluttertoast.showToast(
-                                        msg: "Loading...",
-                                        toastLength: Toast.LENGTH_SHORT,
-                                        gravity: ToastGravity.CENTER,
-                                        timeInSecForIosWeb: 1,
-                                        backgroundColor: Colors.yellow,
-                                        textColor: Colors.white,
-                                        fontSize: 16.0
-                                    );
+                                    login(userC.text, passC.text);
+
                                     print('$userC & $passC');
-                                    Navigator.pushNamed(context, '/home');
+
                                   } else{
                                     Fluttertoast.showToast(
                                         msg: "Username/Password is wrong!",
@@ -238,6 +233,59 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  void login(String username, String password) async {
+    var data = <String, String>{
+      'username' : username,
+      'password' : password,
+    };
+    print(data);
+    Map<String, String> head = {
+      'Content-Type' : 'application/json; charset=utf-8'
+    };
+    print(head);
+    // var conv = json.encode(data);
+    var response = await http.post(
+        Uri.parse('http://192.168.56.1:8080/api/login'),
+        headers: head,
+        body: jsonEncode(data)
+    );
+    print(response);
+    if (response.statusCode == 200) {
+      // Navigator.pushNamedAndRemoveUntil(context,'/home',
+      //         (Route<dynamic> route) => false
+      // );
+      Fluttertoast.showToast(
+          msg: "Login Success",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.yellow,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    } if(response.statusCode == 404) {
+      Fluttertoast.showToast(
+          msg: "Username/Password wrong",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.yellow,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }else{
+      Fluttertoast.showToast(
+          msg: "Error",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.yellow,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }
   }
 
 }
