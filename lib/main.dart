@@ -8,6 +8,7 @@ import 'package:hefish_project/welcome_page.dart';
 import 'package:lottie/lottie.dart';
 
 void main(){
+  // WidgetsFlutterBinding.ensureInitialized();
   runApp(MyApp());
 }
 

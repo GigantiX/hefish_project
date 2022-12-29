@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -236,6 +237,8 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void login(String username, String password) async {
+    final pref = await SharedPreferences.getInstance();
+    SharedPreferences.setMockInitialValues({});
     var data = <String, String>{
       'username' : username,
       'password' : password,
@@ -244,18 +247,24 @@ class _LoginPageState extends State<LoginPage> {
     Map<String, String> head = {
       'Content-Type' : 'application/json; charset=utf-8'
     };
-    print(head);
+    // print(head);
     // var conv = json.encode(data);
     var response = await http.post(
         Uri.parse('http://192.168.56.1:8080/api/login'),
         headers: head,
         body: jsonEncode(data)
     );
-    print(response);
+
+    print(response.body);
+
     if (response.statusCode == 200) {
+      var dataJS = json.decode(response.body);
+      String resToken = dataJS['token'];
+      pref.setString('token', resToken);
       Navigator.pushNamedAndRemoveUntil(context,'/home',
               (Route<dynamic> route) => false
       );
+
       Fluttertoast.showToast(
           msg: "Login Success",
           toastLength: Toast.LENGTH_SHORT,
