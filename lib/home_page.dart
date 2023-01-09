@@ -1,5 +1,7 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -33,6 +35,11 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    const links = [
+      "https://cff2.earth.com/uploads/2021/05/25053338/shutterstock_3433242232-960x640.jpg",
+      "https://www.thesprucepets.com/thmb/P-oY8K4zPu_9OzKVsxfyXnS0tXI=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-1214858342-830a0f19ba764412a44e024b9877a5cf.jpg",
+      "https://upload.wikimedia.org/wikipedia/commons/9/9f/Queen_Angelfish.jpg"
+    ];
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -66,7 +73,7 @@ class _HomePageState extends State<HomePage> {
                         ).show()
                 ),
                   child: Row(
-                    children: [
+                    children: const [
                       Icon(
                         Icons.logout,
                         color: Colors.black,
@@ -83,8 +90,81 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Container(
-        child: Center(
-          child: Text(myToken),
+        constraints: BoxConstraints.expand(),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 10,
+              ),
+              CarouselSlider(
+                items: links.map((url) {
+                  return Image.network(url);
+                }).toList(),
+                options: CarouselOptions(
+                    height: 200,
+                    aspectRatio: 16/9,
+                    initialPage: 0,
+                    enlargeCenterPage: true,
+                    enableInfiniteScroll: true,
+                    autoPlay: true,
+                    autoPlayInterval: Duration(seconds: 3)),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Container(
+                width: 330,
+                height: 150,
+                decoration: BoxDecoration(
+                  color: Color(0xff0EA7AE),
+                  borderRadius: BorderRadius.all(Radius.circular(15))
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 8, 10, 6),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('What is He Fish?',
+                        style: GoogleFonts.poppins(
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 18
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Text('He Fish is a company engaged in the sale of'
+                            ' different types of fish of different types of '
+                            'water. We provide various information from various '
+                            'types of fish to support the needs and provide'
+                            ' convenience in learning various types of fish for'
+                            ' users.',
+                          style: GoogleFonts.poppins(
+                            color: Colors.white,
+                            fontSize: 12
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      GridView.count(
+                        crossAxisCount: 2,
+                        children: [
+                          Container(
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
