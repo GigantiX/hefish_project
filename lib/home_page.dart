@@ -174,7 +174,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         // child: Center(child: Text('Hello')),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/fishes');
+                      },
                     ),
                     SizedBox(
                       width: 30,
@@ -192,7 +194,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         // child: Center(child: Text('Hello')),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/fishes');
+                      },
                     ),
                   ],
                 ),
@@ -217,7 +221,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         // child: Center(child: Text('Hello')),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/fishes');
+                      },
                     ),
                     SizedBox(
                       width: 30,
@@ -235,7 +241,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         // child: Center(child: Text('Hello')),
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushNamed(context, '/fishes');
+                      },
                     ),
                   ],
                 ),
