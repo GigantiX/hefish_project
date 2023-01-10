@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        shadowColor: Colors.white,
         backgroundColor: Color(0xff0EA7AE),
         title: Text('He Fish'),
         actions: [
@@ -121,7 +122,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.all(Radius.circular(15))
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 8, 10, 6),
+                  padding: const EdgeInsets.fromLTRB(10, 8, 10, 0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +135,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 5,
                       ),
                       Center(
                         child: Text('He Fish is a company engaged in the sale of'
@@ -149,20 +150,96 @@ class _HomePageState extends State<HomePage> {
                           ),
                         ),
                       ),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      GridView.count(
-                        crossAxisCount: 2,
-                        children: [
-                          Container(
-                          )
-                        ],
-                      )
                     ],
                   ),
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      child: Container(
+                        width: 150,
+                        height: 80,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/SaltyWater.png'),
+                            fit: BoxFit.cover
+                          )
+                        ),
+                        // child: Center(child: Text('Hello')),
+                      ),
+                      onTap: () {},
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        width: 150,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/Fresh.png'),
+                                fit: BoxFit.cover
+                            )
+                        ),
+                        // child: Center(child: Text('Hello')),
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 30),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      child: Container(
+                        width: 150,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/Ornamental.png'),
+                                fit: BoxFit.cover
+                            )
+                        ),
+                        // child: Center(child: Text('Hello')),
+                      ),
+                      onTap: () {},
+                    ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    GestureDetector(
+                      child: Container(
+                        width: 150,
+                        height: 80,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            image: DecorationImage(
+                                image: AssetImage('assets/images/Mixed.png'),
+                                fit: BoxFit.cover
+                            )
+                        ),
+                        // child: Center(child: Text('Hello')),
+                      ),
+                      onTap: () {},
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
