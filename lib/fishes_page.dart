@@ -1,6 +1,12 @@
+import 'dart:convert';
+// import 'dart:html';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:hefish_project/model/data_fishes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
 
 class FishesPage extends StatefulWidget {
   const FishesPage({Key? key}) : super(key: key);
@@ -10,10 +16,38 @@ class FishesPage extends StatefulWidget {
 }
 
 class _FishesPageState extends State<FishesPage> {
-
-  clearToken() async{
+  clearToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     await preferences.clear();
+  }
+
+  List<Fishes> listfish = [];
+
+  Future getFishes() async {
+    final Uri url = Uri.parse('http://192.168.56.1:8080/api/read-fishes');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      Iterable it = jsonDecode(response.body);
+      List<Fishes> fishdata = it.map((e) => Fishes.fromJson(e)).toList();
+      // final result =fishesFromJson(response.body);
+      // fishes = (json.decode(response.body) as List)
+      //     .map((data) => Fishes.fromJson(data))
+      //     .toList();
+      return fishdata;
+    }
+  }
+
+  takeFish() async {
+    listfish = await getFishes();
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    takeFish();
+    super.initState();
   }
 
   @override
@@ -52,25 +86,25 @@ class _FishesPageState extends State<FishesPage> {
                   PopupMenuItem(
                       onTap: () => Future.delayed(
                           Duration(seconds: 0),
-                              () =>AwesomeDialog(
-                              context: context,
-                              width: 300,
-                              dialogType: DialogType.question,
-                              title: 'Log out',
-                              desc: 'Do you want to logout?',
-                              btnOkText: 'Yes',
-                              btnOkColor: Colors.green,
-                              btnOkOnPress: () {
-                                clearToken();
-                                Navigator.pushNamedAndRemoveUntil(context,'/welcome',
-                                        (Route<dynamic> route) => false
-                                );
-                              },
-                              btnCancelText: 'No',
-                              btnCancelColor: Colors.red,
-                              btnCancelOnPress: (){}
-                          ).show()
-                      ),
+                          () => AwesomeDialog(
+                                  context: context,
+                                  width: 300,
+                                  dialogType: DialogType.question,
+                                  title: 'Log out',
+                                  desc: 'Do you want to logout?',
+                                  btnOkText: 'Yes',
+                                  btnOkColor: Colors.green,
+                                  btnOkOnPress: () {
+                                    clearToken();
+                                    Navigator.pushNamedAndRemoveUntil(
+                                        context,
+                                        '/welcome',
+                                        (Route<dynamic> route) => false);
+                                  },
+                                  btnCancelText: 'No',
+                                  btnCancelColor: Colors.red,
+                                  btnCancelOnPress: () {})
+                              .show()),
                       child: Row(
                         children: const [
                           Icon(
@@ -82,8 +116,7 @@ class _FishesPageState extends State<FishesPage> {
                           ),
                           Text('Logout')
                         ],
-                      )
-                  )
+                      ))
                 ],
               )
             ],
@@ -97,7 +130,99 @@ class _FishesPageState extends State<FishesPage> {
           body: TabBarView(
             children: [
               Container(
-                color: Colors.blue[200],
+                color: Colors.grey[200],
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          // final fishIndx = fishes[index];
+                          return Container(
+                            height: 110,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(10, 7, 7, 7),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 87,
+                                    width: 87,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Image.network(
+                                      listfish[index].imagePath.toString(),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        listfish[index].name.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 15
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        listfish[index].description.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        listfish[index].price.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 80,
+                                        color: Colors.transparent,
+                                        child: ElevatedButton(
+                                            onPressed: (){
+                                              print(index);
+                                            },
+                                            child: Text(
+                                                'Check',
+                                              style: GoogleFonts.poppins(
+                                                fontSize: 13
+                                              ),
+                                            )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => Divider(),
+                        itemCount: listfish.length),
+                  ),
+                ),
               ),
               Container(
                 color: Colors.yellow[200],
