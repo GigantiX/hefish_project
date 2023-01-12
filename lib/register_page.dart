@@ -110,7 +110,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                         textColor: Colors.white,
                                         fontSize: 16.0);
                                     print('$emailC & $passC');
-                                    Navigator.pushNamed(context, '/home');
+                                    Navigator.pushNamed(context, '/login');
                                   } else {
                                     Fluttertoast.showToast(
                                         msg:

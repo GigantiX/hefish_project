@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hefish_project/fishes_page.dart';
 import 'package:hefish_project/home_page.dart';
+import 'package:hefish_project/insert_page.dart';
 import 'package:hefish_project/login_page.dart';
 import 'package:hefish_project/register_page.dart';
 import 'package:hefish_project/welcome_page.dart';
@@ -30,7 +31,8 @@ class MyApp extends StatelessWidget {
         '/home' : (context) => const HomePage(),
         '/login' : (context) => const LoginPage(),
         '/register' : (context) => const RegisterPage(),
-        '/fishes' : (context) => const FishesPage()
+        '/fishes' : (context) => const FishesPage(),
+        '/insert' : (context) => const InsertPage(),
       },
       // home: SplashScreen(),
     );
