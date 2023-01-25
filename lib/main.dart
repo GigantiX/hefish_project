@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hefish_project/detail_page.dart';
 import 'package:hefish_project/fishes_page.dart';
 import 'package:hefish_project/home_page.dart';
 import 'package:hefish_project/insert_page.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/register' : (context) => const RegisterPage(),
         '/fishes' : (context) => const FishesPage(),
         '/insert' : (context) => const InsertPage(),
+        '/detail' : (context) => const DetailPage()
       },
       // home: SplashScreen(),
     );

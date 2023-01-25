@@ -202,7 +202,7 @@ class _FishesPageState extends State<FishesPage> {
                                         color: Colors.transparent,
                                         child: ElevatedButton(
                                             onPressed: (){
-                                              print(index);
+                                              Navigator.pushNamed(context, '/detail');
                                             },
                                             child: Text(
                                                 'Check',
@@ -225,13 +225,289 @@ class _FishesPageState extends State<FishesPage> {
                 ),
               ),
               Container(
-                color: Colors.yellow[200],
+                color: Colors.grey[200],
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          // final fishIndx = fishes[index];
+                          return Container(
+                            height: 110,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(10, 7, 7, 7),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 87,
+                                    width: 87,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Image.network(
+                                      listfish[index].imagePath.toString(),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        listfish[index].name.toString(),
+                                        style: GoogleFonts.montserrat(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        listfish[index].description.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        listfish[index].price.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 80,
+                                        color: Colors.transparent,
+                                        child: ElevatedButton(
+                                            onPressed: (){
+                                              Navigator.pushNamed(context, '/detail');
+                                            },
+                                            child: Text(
+                                              'Check',
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 13
+                                              ),
+                                            )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => Divider(),
+                        itemCount: listfish.length),
+                  ),
+                ),
               ),
               Container(
-                color: Colors.green[200],
+                color: Colors.grey[200],
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          // final fishIndx = fishes[index];
+                          return Container(
+                            height: 110,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(10, 7, 7, 7),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 87,
+                                    width: 87,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Image.network(
+                                      listfish[index].imagePath.toString(),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        listfish[index].name.toString(),
+                                        style: GoogleFonts.montserrat(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        listfish[index].description.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        listfish[index].price.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 80,
+                                        color: Colors.transparent,
+                                        child: ElevatedButton(
+                                            onPressed: (){
+                                              Navigator.pushNamed(context, '/detail');
+                                            },
+                                            child: Text(
+                                              'Check',
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 13
+                                              ),
+                                            )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => Divider(),
+                        itemCount: listfish.length),
+                  ),
+                ),
               ),
               Container(
-                color: Colors.red[200],
+                color: Colors.grey[200],
+                child: SingleChildScrollView(
+                  child: Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: ListView.separated(
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          // final fishIndx = fishes[index];
+                          return Container(
+                            height: 110,
+                            width: 200,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                            child: Padding(
+                              padding: EdgeInsets.fromLTRB(10, 7, 7, 7),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    height: 87,
+                                    width: 87,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10))),
+                                    child: Image.network(
+                                      listfish[index].imagePath.toString(),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        listfish[index].name.toString(),
+                                        style: GoogleFonts.montserrat(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 15
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Text(
+                                        listfish[index].description.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        listfish[index].price.toString(),
+                                        style: GoogleFonts.montserrat(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Container(
+                                        height: 30,
+                                        width: 80,
+                                        color: Colors.transparent,
+                                        child: ElevatedButton(
+                                            onPressed: (){
+                                              Navigator.pushNamed(context, '/detail');
+                                            },
+                                            child: Text(
+                                              'Check',
+                                              style: GoogleFonts.poppins(
+                                                  fontSize: 13
+                                              ),
+                                            )
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                        separatorBuilder: (context, index) => Divider(),
+                        itemCount: listfish.length),
+                  ),
+                ),
               ),
             ],
           ),
