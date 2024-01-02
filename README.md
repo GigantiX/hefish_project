@@ -1,6 +1,6 @@
 # hefish_project
 
-A new Flutter project.
+A new Flutter project "HeFish" using MySQL as database and ExpressJS as a middle-ware.
 
 ## Getting Started
 
