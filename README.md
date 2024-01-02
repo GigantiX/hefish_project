@@ -1,6 +1,6 @@
 # hefish_project
 
-A new Flutter project "HeFish" using MySQL as database and ExpressJS as a middle-ware.
+A new Flutter project "HeFish" using MySQL as database and ExpressJS as a middle-ware. For NodeJS file you can access it with this link (https://github.com/GigantiX/Hefish-Backend)
 
 ## Getting Started
 
